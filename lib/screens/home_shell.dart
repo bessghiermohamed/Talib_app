@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../data/repository.dart';
@@ -30,15 +30,15 @@ class _HomeShellState extends State<HomeShell> {
       _CoursesPage(semesterId: widget.profile.semesterId!),
       const _ComingSoon(
           title: 'الجدول',
-          icon: PhosphorIcons.regular.calendarBlank,
+          icon: PhosphorIconsRegular.calendarBlank,
           note: 'جدولك الأسبوعي قادم في الإصدار القادم — بياناته موجودة أصلًا في قاعدة البيانات'),
       const _ComingSoon(
           title: 'ملفاتي',
-          icon: PhosphorIcons.regular.folders,
+          icon: PhosphorIconsRegular.folders,
           note: 'المحفوظات والتحميلات والملاحظات — بعد صفحة المقرر'),
       const _ComingSoon(
           title: 'المزيد',
-          icon: PhosphorIcons.regular.dotsThree,
+          icon: PhosphorIconsRegular.dotsThree,
           note: 'الإعدادات والملف الشخصي'),
     ];
     return Scaffold(
@@ -48,26 +48,26 @@ class _HomeShellState extends State<HomeShell> {
         onDestinationSelected: (i) => setState(() => idx = i),
         destinations: [
           NavigationDestination(
-              icon: Icon(PhosphorIcons.regular.house),
-              selectedIcon: Icon(PhosphorIcons.fill.house, color: cs.primary),
+              icon: Icon(PhosphorIconsRegular.house),
+              selectedIcon: Icon(PhosphorIconsFill.house, color: cs.primary),
               label: 'الرئيسية'),
           NavigationDestination(
-              icon: Icon(PhosphorIcons.regular.books),
-              selectedIcon: Icon(PhosphorIcons.fill.books, color: cs.primary),
+              icon: Icon(PhosphorIconsRegular.books),
+              selectedIcon: Icon(PhosphorIconsFill.books, color: cs.primary),
               label: 'المقررات'),
           NavigationDestination(
-              icon: Icon(PhosphorIcons.regular.calendarBlank),
+              icon: Icon(PhosphorIconsRegular.calendarBlank),
               selectedIcon:
-                  Icon(PhosphorIcons.fill.calendarBlank, color: cs.primary),
+                  Icon(PhosphorIconsFill.calendarBlank, color: cs.primary),
               label: 'الجدول'),
           NavigationDestination(
-              icon: Icon(PhosphorIcons.regular.folders),
-              selectedIcon: Icon(PhosphorIcons.fill.folders, color: cs.primary),
+              icon: Icon(PhosphorIconsRegular.folders),
+              selectedIcon: Icon(PhosphorIconsFill.folders, color: cs.primary),
               label: 'ملفاتي'),
           NavigationDestination(
-              icon: Icon(PhosphorIcons.regular.dotsThree),
+              icon: Icon(PhosphorIconsRegular.dotsThree),
               selectedIcon:
-                  Icon(PhosphorIcons.fill.dotsThree, color: cs.primary),
+                  Icon(PhosphorIconsFill.dotsThree, color: cs.primary),
               label: 'المزيد'),
         ],
       ),
@@ -104,7 +104,7 @@ class _HomePage extends StatelessWidget {
             ),
             IconButton.outlined(
                 onPressed: onLogout,
-                icon: Icon(PhosphorIcons.regular.signOut)),
+                icon: Icon(PhosphorIconsRegular.signOut)),
           ]),
           const SizedBox(height: 18),
           Container(
@@ -255,7 +255,7 @@ class _CourseCard extends StatelessWidget {
           decoration: BoxDecoration(
               color: cs.primary.withOpacity(.09),
               borderRadius: BorderRadius.circular(14)),
-          child: Icon(PhosphorIcons.regular.bookOpenText,
+          child: Icon(PhosphorIconsRegular.bookOpenText,
               color: cs.primary, size: 20),
         ),
         const SizedBox(width: 13),
@@ -272,7 +272,7 @@ class _CourseCard extends StatelessWidget {
                 ],
               ]),
         ),
-        Icon(PhosphorIcons.regular.caretLeft,
+        Icon(PhosphorIconsRegular.caretLeft,
             color: cs.onSurface.withOpacity(.4)),
       ]),
     );
