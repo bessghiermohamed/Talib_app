@@ -384,7 +384,9 @@ class _CourseScreenState extends State<CourseScreen> {
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF9C6238))),
-                  ]),
+                  ),
+                ],
+              ),
             const SizedBox(height: 10),
             Text(e.title,
                 style: tt.titleMedium

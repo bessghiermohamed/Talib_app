@@ -123,26 +123,26 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder<Color>(
+    return TweenAnimationBuilder<Color?>(
       tween: ColorTween(
-        end: active ? activeColor : mutedColor,
-      ),
+          end: active ? activeColor : mutedColor),
       duration: const Duration(milliseconds: 200),
-      builder: (context, color, _) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-              active ? fillIcon : regularIcon,
-              size: 21,
-              color: color),
-          const SizedBox(height: 3),
-          Text(label,
-              style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                  color: color)),
-        ],
-      ),
+      builder: (context, color, _) {
+        final c = color ?? mutedColor;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(active ? fillIcon : regularIcon,
+                size: 21, color: c),
+            const SizedBox(height: 3),
+            Text(label,
+                style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    color: c)),
+          ],
+        );
+      },
     );
   }
 }
