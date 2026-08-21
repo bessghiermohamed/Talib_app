@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// تسجيل الدخول: زائر (الأسرع للتجربة) أو بريد + كلمة مرور
@@ -79,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   decoration: BoxDecoration(
                       color: cs.primary,
                       borderRadius: BorderRadius.circular(24)),
-                  child: Icon(PhosphorIcons.fill.bookOpenText,
+                  child: Icon(PhosphorIconsFill.bookOpenText,
                       color: cs.onPrimary, size: 36),
                 ),
                 const SizedBox(height: 14),
@@ -93,7 +93,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 const SizedBox(height: 32),
                 FilledButton.icon(
                   onPressed: busy ? null : _guest,
-                  icon: Icon(PhosphorIcons.regular.userCircle),
+                  icon: Icon(PhosphorIconsRegular.userCircle),
                   label: const Text('المتابعة كزائر'),
                 ),
                 const SizedBox(height: 24),
@@ -111,7 +111,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'البريد الإلكتروني',
-                    prefixIcon: Icon(PhosphorIcons.regular.envelopeSimple),
+                    prefixIcon: Icon(PhosphorIconsRegular.envelopeSimple),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -120,7 +120,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'كلمة المرور',
-                    prefixIcon: Icon(PhosphorIcons.regular.lockKey),
+                    prefixIcon: Icon(PhosphorIconsRegular.lockKey),
                   ),
                 ),
                 const SizedBox(height: 16),
