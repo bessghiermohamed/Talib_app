@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../data/repository.dart';
 import '../models/academic.dart';
@@ -127,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         decoration: BoxDecoration(
                             color: cs.primary,
                             borderRadius: BorderRadius.circular(17)),
-                        child: Icon(PhosphorIcons.fill.bookOpenText,
+                        child: Icon(PhosphorIconsFill.bookOpenText,
                             color: cs.onPrimary, size: 24),
                       ),
                       const SizedBox(height: 8),
@@ -289,7 +289,7 @@ class _ErrorView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(PhosphorIcons.regular.warningCircle,
+          Icon(PhosphorIconsRegular.warningCircle,
               size: 44,
               color: Theme.of(context).colorScheme.onSurface.withOpacity(.4)),
           const SizedBox(height: 12),
@@ -299,7 +299,7 @@ class _ErrorView extends StatelessWidget {
           const SizedBox(height: 14),
           OutlinedButton.icon(
             onPressed: onRetry,
-            icon: Icon(PhosphorIcons.regular.arrowClockwise),
+            icon: Icon(PhosphorIconsRegular.arrowClockwise),
             label: const Text('إعادة المحاولة'),
           ),
         ],
