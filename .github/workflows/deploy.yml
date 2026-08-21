@@ -4,7 +4,7 @@ on:
     branches: [main, master]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 concurrency:
@@ -19,20 +19,7 @@ jobs:
         with:
           channel: stable
       - run: flutter pub get
-      - name: Build web (debug capture)
-        run: |
-          flutter build web --release --base-href /Talib_app/ 2>&1 | tee /tmp/build_log.txt || true
-      - name: Commit debug log
-        run: |
-          mkdir -p .debug
-          cp /tmp/build_log.txt .debug/build_log.txt
-          git config user.name "debug-bot"
-          git config user.email "debug-bot@users.noreply.github.com"
-          git add .debug/build_log.txt
-          git commit -m "debug: capture build log [skip ci]" || echo "nothing to commit"
-          git push
-      - name: Fail if build actually failed
-        run: grep -q "Compiling lib/main.dart for the Web" /tmp/build_log.txt && ! grep -qi "^Error" /tmp/build_log.txt
+      - run: flutter build web --release --base-href /Talib_app/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
