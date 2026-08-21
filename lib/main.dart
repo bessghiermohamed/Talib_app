@@ -58,7 +58,7 @@ class _RootGateState extends State<RootGate> {
   @override
   void initState() {
     super.initState();
-    _sub = Supabase.instance.client.auth.onAuthStateChanges.listen((_) => _load());
+    _sub = Supabase.instance.client.auth.onAuthStateChange.listen((_) => _load());
     _load();
   }
 
