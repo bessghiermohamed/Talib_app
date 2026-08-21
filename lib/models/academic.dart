@@ -14,12 +14,14 @@ class Course {
   final String? teacherName;
   final int? hoursPerWeek;
   final String? description;
+  final List<String> refs;
   const Course({
     required this.id,
     required this.name,
     this.teacherName,
     this.hoursPerWeek,
     this.description,
+    this.refs = const [],
   });
 
   factory Course.fromMap(Map<String, dynamic> m) => Course(
@@ -28,6 +30,7 @@ class Course {
         teacherName: m['teacher_name'] as String?,
         hoursPerWeek: m['hours_per_week'] as int?,
         description: m['description'] as String?,
+        refs: ((m['refs'] ?? const []) as List).cast<String>().toList(),
       );
 }
 
