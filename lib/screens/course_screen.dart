@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../core/ui.dart';
 import '../data/repository.dart';
@@ -129,13 +129,13 @@ class _CourseScreenState extends State<CourseScreen> {
                 url: repo.fileUrl(f.storagePath!))));
   }
 
-  IconData _fileIcon(String t) => switch (t) {
-        'docx' => PhosphorIcons.regular.fileDoc,
-        'ppt' || 'pptx' => PhosphorIcons.regular.projectorScreen,
-        'image' => PhosphorIcons.regular.image,
-        'link' => PhosphorIcons.regular.link,
-        _ => PhosphorIcons.regular.filePdf,
-      };
+  IconData _fileIcon(String t) {
+    if (t == 'docx' || t == 'doc') return PhosphorIconsRegular.fileText;
+    if (t == 'ppt' || t == 'pptx') return PhosphorIconsRegular.presentationChart;
+    if (t == 'image') return PhosphorIconsRegular.image;
+    if (t == 'link') return PhosphorIconsRegular.link;
+    return PhosphorIconsRegular.filePdf;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class _CourseScreenState extends State<CourseScreen> {
         appBar: AppBar(title: const Text('')),
         body: Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Icon(PhosphorIcons.regular.warningCircle,
+            Icon(PhosphorIconsRegular.warningCircle,
                 size: 44, color: cs.onSurface.withOpacity(.4)),
             const SizedBox(height: 12),
             Text(error!, style: tt.bodySmall),
@@ -168,7 +168,6 @@ class _CourseScreenState extends State<CourseScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(18, 8, 18, 28),
           children: [
-            // Top bar
             Row(children: [
               IconButton.outlined(
                   onPressed: () => Navigator.pop(context),
@@ -177,8 +176,8 @@ class _CourseScreenState extends State<CourseScreen> {
               IconButton.outlined(
                   onPressed: () => setState(() => saved = !saved),
                   icon: Icon(saved
-                      ? PhosphorIcons.fill.bookmarkSimple
-                      : PhosphorIcons.regular.bookmarkSimple),
+                      ? PhosphorIconsFill.bookmarkSimple
+                      : PhosphorIconsRegular.bookmarkSimple),
                   color: saved ? cs.primary : null),
             ]),
             const SizedBox(height: 6),
@@ -201,19 +200,15 @@ class _CourseScreenState extends State<CourseScreen> {
                   TalibChip(text: '$percent% مكتمل', filled: true),
                 ]),
             const SizedBox(height: 16),
-
-            // Tab bar
             _TabBar(
                 current: tab,
                 onChanged: (i) => setState(() => tab = i),
                 tabs: _tabs),
             const SizedBox(height: 16),
-
-            // Tab content
             if (tab == 0) ...[
               if (weeks.isEmpty)
                 _EmptyState(
-                    icon: PhosphorIcons.regular.books,
+                    icon: PhosphorIconsRegular.books,
                     title: 'لم يُنشر محتوى بعد',
                     body:
                         'ستظهر الأسابيع هنا فور نشرها من لوحة الإدارة'),
@@ -222,7 +217,7 @@ class _CourseScreenState extends State<CourseScreen> {
             if (tab == 1) ...[
               if (files.isEmpty)
                 const _EmptyState(
-                    icon: PhosphorIcons.regular.filePdf,
+                    icon: PhosphorIconsRegular.filePdf,
                     title: 'لا توجد ملفات بعد',
                     body: 'ستظهر الملفات هنا فور رفعها'),
               for (final f in files) _fileRow(cs, tt, f),
@@ -230,7 +225,7 @@ class _CourseScreenState extends State<CourseScreen> {
             if (tab == 2) ...[
               if (exams.isEmpty)
                 const _EmptyState(
-                    icon: PhosphorIcons.regular.clipboardText,
+                    icon: PhosphorIconsRegular.clipboardText,
                     title: 'لا اختبارات مجدولة',
                     body: 'ستظهر الاختبارات هنا فور جدولتها'),
               for (final e in exams) _examCard(cs, tt, e),
@@ -267,10 +262,10 @@ class _CourseScreenState extends State<CourseScreen> {
             child: Row(children: [
               Icon(
                   done
-                      ? PhosphorIcons.fill.checkCircle
+                      ? PhosphorIconsFill.checkCircle
                       : hasLec
-                          ? PhosphorIcons.regular.pencilLine
-                          : PhosphorIcons.regular.hourglass,
+                          ? PhosphorIconsRegular.pencilLine
+                          : PhosphorIconsRegular.hourglass,
                   size: 22,
                   color: done || cur
                       ? cs.primary
@@ -337,7 +332,7 @@ class _CourseScreenState extends State<CourseScreen> {
             padding: const EdgeInsets.all(13),
             child: Row(children: [
               TalibIconTile.small(
-                  icon: _fileIcon(f.fileType ?? ''), size: 34, radius: 11),
+                  icon: _fileIcon(f.fileType ?? '')),
               const SizedBox(width: 12),
               Expanded(
                   child: Column(
@@ -351,7 +346,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         '${weekLabel(f.weekId)}${size.isEmpty ? '' : ' · $size'}',
                         style: tt.bodySmall),
                   ])),
-              Icon(PhosphorIcons.regular.caretLeft,
+              Icon(PhosphorIconsRegular.caretLeft,
                   color: cs.onSurface.withOpacity(.4)),
             ]),
           ),
@@ -373,8 +368,8 @@ class _CourseScreenState extends State<CourseScreen> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('اختبار',
-                      style: const TextStyle(
+                  const Text('اختبار',
+                      style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF9C6238))),
@@ -385,7 +380,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         color: const Color(0xFFC8956C).withOpacity(.16),
                         borderRadius: BorderRadius.circular(99)),
                     child: Text(dLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF9C6238))),
@@ -400,11 +395,11 @@ class _CourseScreenState extends State<CourseScreen> {
               runSpacing: 6,
               children: [
                 if (date != null)
-                  _meta(cs, PhosphorIcons.regular.calendarBlank, date),
+                  _meta(cs, PhosphorIconsRegular.calendarBlank, date),
                 if (e.place != null)
-                  _meta(cs, PhosphorIcons.regular.mapPin, e.place!),
+                  _meta(cs, PhosphorIconsRegular.mapPin, e.place!),
                 if (e.scope != null)
-                  _meta(cs, PhosphorIcons.regular.info, e.scope!),
+                  _meta(cs, PhosphorIconsRegular.info, e.scope!),
               ],
             ),
           ]),
@@ -449,8 +444,8 @@ class _CourseScreenState extends State<CourseScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6),
                     child: Row(children: [
-                      Icon(PhosphorIcons.regular.book,
-                          size: 18, color: const Color(0xFF9C6238)),
+                      const Icon(PhosphorIconsRegular.book,
+                          size: 18, color: Color(0xFF9C6238)),
                       const SizedBox(width: 10),
                       Expanded(
                           child: Text(r,

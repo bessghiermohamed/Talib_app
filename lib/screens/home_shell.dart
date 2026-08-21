@@ -104,7 +104,7 @@ class _TalibBottomNav extends StatelessWidget {
   }
 }
 
-class _NavItem extends ImplicitlyAnimatedWidget {
+class _NavItem extends StatelessWidget {
   const _NavItem({
     required this.active,
     required this.regularIcon,
@@ -112,7 +112,7 @@ class _NavItem extends ImplicitlyAnimatedWidget {
     required this.label,
     required this.activeColor,
     required this.mutedColor,
-  }) : super(duration: const Duration(milliseconds: 200));
+  });
 
   final bool active;
   final IconData regularIcon;
@@ -122,40 +122,27 @@ class _NavItem extends ImplicitlyAnimatedWidget {
   final Color mutedColor;
 
   @override
-  ImplicitlyAnimatedWidgetState<_NavItem> createState() =>
-      _NavItemState();
-}
-
-class _NavItemState extends ImplicitlyAnimatedWidgetState<_NavItem> {
-  late final ColorAnimation _colorAnim;
-
-  @override
-  void forEachTween(TweenVisitor<dynamic> visitor) {
-    _colorAnim = visitor(
-      _colorAnim,
-      widget.active ? widget.activeColor : widget.mutedColor,
-      (value) => ColorTween(begin: value as Color?, end: value as Color?),
-      (value) => value as Color,
-    ) as ColorAnimation;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final color = _colorAnim.value;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-            widget.active ? widget.fillIcon : widget.regularIcon,
-            size: 21,
-            color: color),
-        const SizedBox(height: 3),
-        Text(widget.label,
-            style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: color)),
-      ],
+    return TweenAnimationBuilder<Color>(
+      tween: ColorTween(
+        end: active ? activeColor : mutedColor,
+      ),
+      duration: const Duration(milliseconds: 200),
+      builder: (context, color, _) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+              active ? fillIcon : regularIcon,
+              size: 21,
+              color: color),
+          const SizedBox(height: 3),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: color)),
+        ],
+      ),
     );
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../core/ui.dart';
 import '../data/repository.dart';
 import '../models/academic.dart';
 import '../models/content.dart';
 
-/// شاشة المحاضرة — عرض النص + قاعدة سريعة + وسْم مقروء — v0.2
+/// شاشة المحاضرة — عرض النص + قاعدة سريعة + وسم مقروء — v0.2
 class LectureScreen extends StatefulWidget {
   const LectureScreen({
     super.key,
@@ -64,16 +64,15 @@ class _LectureScreenState extends State<LectureScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    // Extract first paragraph as quick rule if body exists
     final bodyText = widget.lecture.body ?? '';
-    final firstParagraph = bodyText.indexOf('\n');
-    final quickRuleText = firstParagraph > 0
-        ? bodyText.substring(0, firstParagraph).trim()
+    final nlIndex = bodyText.indexOf('\n');
+    final quickRuleText = nlIndex > 0
+        ? bodyText.substring(0, nlIndex).trim()
         : bodyText.length > 120
             ? '${bodyText.substring(0, 120).trim()}...'
             : bodyText.trim();
-    final remainingBody = firstParagraph > 0
-        ? bodyText.substring(firstParagraph + 1).trim()
+    final remainingBody = nlIndex > 0
+        ? bodyText.substring(nlIndex + 1).trim()
         : '';
 
     return Scaffold(
@@ -81,7 +80,6 @@ class _LectureScreenState extends State<LectureScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(18, 8, 18, 100),
           children: [
-            // Header row
             Row(children: [
               IconButton.outlined(
                 onPressed: () => Navigator.pop(context),
@@ -90,12 +88,11 @@ class _LectureScreenState extends State<LectureScreen> {
               const Spacer(),
               Text(
                 'الأسبوع ${widget.week.orderIndex}',
-                style: tt.labelMedium?.copyWith(color: cs.onSurface.withOpacity(.5)),
+                style: tt.labelMedium
+                    ?.copyWith(color: cs.onSurface.withOpacity(.5)),
               ),
             ]),
             const SizedBox(height: 8),
-
-            // Lecture title
             Text(
               widget.lecture.title,
               style: tt.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
@@ -108,8 +105,6 @@ class _LectureScreenState extends State<LectureScreen> {
               ),
             ],
             const SizedBox(height: 20),
-
-            // Quick Rule box
             if (quickRuleText.isNotEmpty) ...[
               Container(
                 width: double.infinity,
@@ -130,7 +125,7 @@ class _LectureScreenState extends State<LectureScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
-                        PhosphorIcons.regular.lightbulb,
+                        PhosphorIconsRegular.lightbulb,
                         size: 20,
                         color: cs.primary,
                       ),
@@ -164,22 +159,15 @@ class _LectureScreenState extends State<LectureScreen> {
               ),
               const SizedBox(height: 20),
             ],
-
-            // Full body text
             if (remainingBody.isNotEmpty)
-              Text(
-                remainingBody,
-                style: tt.bodyMedium?.copyWith(height: 2),
-              )
-            else if (quickRuleText.isNotEmpty && firstParagraph <= 0)
-              Text(
-                bodyText,
-                style: tt.bodyMedium?.copyWith(height: 2),
-              ),
+              Text(remainingBody,
+                  style: tt.bodyMedium?.copyWith(height: 2))
+            else if (bodyText.trim().isNotEmpty && nlIndex <= 0)
+              Text(bodyText,
+                  style: tt.bodyMedium?.copyWith(height: 2)),
           ],
         ),
       ),
-      // Bottom: mark as read button
       bottomSheet: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
@@ -189,14 +177,13 @@ class _LectureScreenState extends State<LectureScreen> {
               onPressed: _toggleRead,
               icon: Icon(
                 isRead
-                    ? PhosphorIcons.fill.checkCircle
-                    : PhosphorIcons.regular.checkCircle,
+                    ? PhosphorIconsFill.checkCircle
+                    : PhosphorIconsRegular.checkCircle,
                 size: 20,
               ),
               label: Text(
                 isRead ? 'تمت القراءة' : 'وسم كمقروء',
-                style: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.w700),
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
               ),
               style: FilledButton.styleFrom(
                 backgroundColor: isRead ? cs.primary.withOpacity(.12) : cs.primary,
